@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EduPasut - Kepri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🌊 EduPasut</h1>
+            <p>Simulasi Prediksi Pasang Surut & Keselamatan Pelayaran</p>
+        </header>
+
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <label>📍 Lokasi Pantau</label>
+                    <select disabled><option>Laut Kepulauan Riau</option></select>
+                </div>
+                <div class="col">
+                    <label>📅 Pilih Tanggal</label>
+                    <input type="date" id="dateInput">
+                </div>
+            </div>
+
+            <label style="margin-top: 15px;">🤖 Metode Algoritma</label>
+            <div class="model-selector">
+                <button class="model-btn" onclick="selectModel('linear')" id="btn-linear">Linear</button>
+                <button class="model-btn" onclick="selectModel('poly')" id="btn-poly">Polynomial</button>
+                <button class="model-btn active" onclick="selectModel('harmonic')" id="btn-harmonic">Harmonic</button>
+            </div>
+
+            <button class="predict-btn" onclick="getPrediction()">ANALISIS SEKARANG</button>
+        </div>
+
+        <div class="card result-section" id="resultCard" style="display:none;">
+            <div class="result-header">
+                <h2 id="modelTitle">Harmonic</h2>
+                <span id="accuracyBadge" class="badge">AKURAT</span>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="tideChart"></canvas>
+            </div>
+
+            <div class="edu-cards">
+                <div class="edu-card high-tide">
+                    <div class="icon">🌊</div>
+                    <div class="info">
+                        <h4>Pasang Tertinggi</h4>
+                        <p>Pukul <span id="maxTime">-</span> setinggi <span id="maxVal">-</span> M</p>
+                        <small id="maxDesc">...</small>
+                    </div>
+                </div>
+                
+                <div class="edu-card low-tide">
+                    <div class="icon">🪸</div>
+                    <div class="info">
+                        <h4>Surut Terendah</h4>
+                        <p>Pukul <span id="minTime">-</span> setinggi <span id="minVal">-</span> M</p>
+                        <small id="minDesc">...</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="math-box">
+                <p><strong>💡 Catatan Edukasi:</strong> <span id="eduNote">...</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Set default date to today
+        document.getElementById('dateInput').valueAsDate = new Date();
+    </script>
+</body>
+</html>
